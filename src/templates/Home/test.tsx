@@ -8,13 +8,13 @@ import highLightMock from 'components/Highlight/mock'
 
 const props = {
   banners: bannersMock,
-  newGames: gamerCardMock,
+  newGames: [gamerCardMock[0]],
   mostPopularHighlight: highLightMock,
-  mostPopularGames: gamerCardMock,
-  upcommingGames: gamerCardMock,
+  mostPopularGames: [gamerCardMock[0]],
+  upcommingGames: [gamerCardMock[0]],
   upcommingHighlight: highLightMock,
-  upcommingMoreGames: gamerCardMock,
-  freeGames: gamerCardMock,
+  upcommingMoreGames: [gamerCardMock[0]],
+  freeGames: [gamerCardMock[0]],
   freeHighlight: highLightMock
 }
 
@@ -29,10 +29,6 @@ describe('<Home />', () => {
     expect(
       screen.getByRole('heading', { name: /contact/i })
     ).toBeInTheDocument()
-  })
-
-  it('should render sections', () => {
-    renderWithTheme(<Home {...props} />)
 
     expect(screen.getByRole('heading', { name: /news/i })).toBeInTheDocument()
 
@@ -47,5 +43,11 @@ describe('<Home />', () => {
     expect(
       screen.getByRole('heading', { name: /free games/i })
     ).toBeInTheDocument()
+    // banner
+    expect(screen.getAllByText(/defy death 1/i)).toHaveLength(1)
+    // card game ( 5 sections com 4 cards cada = 5x1 = 5)
+    expect(screen.getAllByText(/population zero/i)).toHaveLength(5)
+    // highlight
+    expect(screen.getAllByText(/read dead is back/i)).toHaveLength(3)
   })
 })
